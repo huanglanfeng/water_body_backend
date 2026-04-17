@@ -1,0 +1,9 @@
+[build]
+builder = "nixpacks"
+
+[build.nixpacksConfig]
+provider = "java"
+
+[build.nixpacksConfig.phases]
+build = "mvn -B -DskipTests clean package"
+start = "java -jar target/*.jar"
