@@ -23,8 +23,11 @@ public class JwtFilter extends AccessControlFilter {
      * */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-        log.warn("isAccessAllowed 方法被调用");
-        //这里先让它始终返回false来使用onAccessDenied()方法
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        // 放行 OPTIONS preflight 请求（跨域预检）
+        if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
+            return true;
+        }
         return false;
     }
 
@@ -67,4 +70,3 @@ public class JwtFilter extends AccessControlFilter {
         httpResponse.getWriter().write("login error");
     }
 }
-
