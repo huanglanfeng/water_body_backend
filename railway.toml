@@ -7,3 +7,7 @@ provider = "java"
 [build.nixpacksConfig.phases]
 build = "mvn -B -DskipTests clean package"
 start = "java -jar target/*.jar"
+
+[build.nixpacksConfig.linuxPackages]
+build = ["fontconfig", "freetype"]
+runtime = ["fontconfig", "freetype"]
