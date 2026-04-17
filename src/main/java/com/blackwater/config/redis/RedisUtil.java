@@ -30,7 +30,12 @@ public class RedisUtil {
 
     // 根据键获取值
     public Object get(final String key) {
-        return key == null ? null : redisTemplate.opsForValue().get(key);
+        try {
+            return key == null ? null : redisTemplate.opsForValue().get(key);
+        } catch (final Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // 将<key, value>键值对存入redis
