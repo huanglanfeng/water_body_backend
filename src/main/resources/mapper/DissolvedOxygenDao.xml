@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blackwater.dao.DissolvedOxygenDao">
+
+
+    <select id="selectSalt" resultType="com.blackwater.entity.ElementAndDissolve.Salt">
+        select salt1,salt2,salt3,salt4,salt5
+        from element_dissolve
+        where site = '瑶湖';
+    </select>
+    <select id="selectOrganic" resultType="com.blackwater.entity.ElementAndDissolve.Organic">
+        select organic1,organic2,organic3,organic4,organic5
+        from element_dissolve
+        where site = '瑶湖';
+    </select>
+    <select id="selectInorganic" resultType="com.blackwater.entity.ElementAndDissolve.Inorganic">
+        select inorganic1,inorganic2,inorganic3,inorganic4,inorganic5
+        from element_dissolve
+        where site = '瑶湖';
+    </select>
+    <select id="selectMetal" resultType="com.blackwater.entity.ElementAndDissolve.Metal">
+        select metal1, metal2, metal3, metal4, metal5
+        from element_dissolve
+        where site = '瑶湖';
+    </select>
+    <select id="selectConductivity" resultType="com.blackwater.entity.ElementAndDissolve.Conductivity">
+        select conductivity1,conductivity2,conductivity3,conductivity4,conductivity5
+        from element_dissolve
+        where site = '瑶湖';
+    </select>
+    <select id="selectDissolve" resultType="com.blackwater.entity.ElementAndDissolve.Dissolve">
+        select dissolve1,dissolve2,dissolve3,dissolve4,dissolve5,dissolve6,dissolve7,dissolve8
+        from element_dissolve
+        where site = '瑶湖';
+    </select>
+    <select id="selectElementAndDissolve"
+            resultType="com.blackwater.entity.ElementAndDissolve.ElementAndDissolve">
+        select site
+        from element_dissolve
+        where site = '瑶湖';
+    </select>
+
+
+</mapper>

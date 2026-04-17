@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blackwater.dao.HeavyDao">
+    <delete id="deleteMentalById">
+        delete
+        from mental
+        where id = #{id};
+    </delete>
+    <delete id="deleteGarbageById">
+        delete
+        from garbage
+        where id = #{id};
+    </delete>
+    <delete id="deleteOrganismById">
+        delete
+        from organism
+        where id = #{id};
+    </delete>
+    <delete id="deletePhById">
+        delete
+        from ph
+        where id = #{id};
+    </delete>
+    <delete id="deleteRadiationById">
+        delete
+        from radiation
+        where id = #{id};
+    </delete>
+
+
+    <select id="selectMentalData" resultType="com.blackwater.entity.Heavy.Mental">
+        select id, element,content,device_id,exception_area,warning_time
+        from mental;
+    </select>
+    <select id="selectPhData" resultType="com.blackwater.entity.Heavy.Ph">
+        select *
+        from ph;
+    </select>
+    <select id="selectOrganismData" resultType="com.blackwater.entity.Heavy.Organism">
+        select id, name, number, exception_area, warning_time
+        from organism;
+    </select>
+    <select id="selectGarbageData" resultType="com.blackwater.entity.Heavy.Garbage">
+        select *
+        from garbage;
+
+    </select>
+    <select id="selectRadiationData" resultType="com.blackwater.entity.Heavy.Radiation">
+        select id,radioactive_element,exception_area,warning_time
+        from radiation;
+    </select>
+
+    <select id="selectGarbageContent" resultType="com.blackwater.entity.HeavyContent.Garbage">
+        select content1,content2,content3,content4,content5
+        from garbage
+        where exception_area = "瑶湖" and exist_content =1;
+    </select>
+    <select id="selectMentalContent" resultType="com.blackwater.entity.HeavyContent.Mental">
+        select content1,content2,content3,content4,content5
+        from mental
+        where exception_area = "瑶湖" and exist_content =1;
+    </select>
+    <select id="selectOrganismContent" resultType="com.blackwater.entity.HeavyContent.Organism">
+        select content1,content2,content3,content4,content5
+        from organism
+        where exception_area = "瑶湖" and exist_content =1;
+    </select>
+    <select id="selectRadiationContent" resultType="com.blackwater.entity.HeavyContent.Radiation">
+        select content1,content2,content3,content4,content5
+        from radiation
+        where exception_area = "瑶湖" and exist_content =1;
+    </select>
+</mapper>

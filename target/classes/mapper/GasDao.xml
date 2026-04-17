@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blackwater.dao.GasDao">
+    <update id="updateGasById">
+        update gas
+        set (ammonia,sulfur_dioxide,nitrogen_sulfide,nitrogen_dioxide,ammonia_monoxide,address)
+            = (#{ammonia}, #{sulfur_dioxide},  #{nitrogen_sulfide},
+               #{nitrogen_dioxide}, #{ammonia_monoxide},#{address} )
+        where id = #{id};
+
+    </update>
+    <delete id="deleteGasByAddress">
+        delete
+        from gas
+        where address = #{address};
+    </delete>
+
+
+    <select id="selectAmmonia" resultType="com.blackwater.entity.Gas.Ammonia">
+        select ammonia1, ammonia2, ammonia3, ammonia4, ammonia5, ammonia6, ammonia7
+        from gas
+        where site_id = '瑶湖';
+    </select>
+    <select id="selectCarbon" resultType="com.blackwater.entity.Gas.Carbon">
+        select carbon1, carbon2, carbon3, carbon4, carbon5, carbon6, carbon7
+        from gas
+        where site_id = '瑶湖';
+    </select>
+    <select id="selectHydrogen" resultType="com.blackwater.entity.Gas.Hydrogen">
+        select hydrogen1, hydrogen2, hydrogen3, hydrogen4, hydrogen5, hydrogen6, hydrogen7
+        from gas
+        where site_id = '瑶湖';
+    </select>
+    <select id="selectNitrogen" resultType="com.blackwater.entity.Gas.Nitrogen">
+        select nitrogen1, nitrogen2, nitrogen3, nitrogen4, nitrogen5, nitrogen6, nitrogen7
+        from gas
+        where site_id = '瑶湖';
+    </select>
+    <select id="selectSulfur" resultType="com.blackwater.entity.Gas.Sulfur">
+        select sulfur1, sulfur2, sulfur3, sulfur4, sulfur5, sulfur6, sulfur7
+        from gas
+        where site_id = '瑶湖';
+    </select>
+ 
+</mapper>

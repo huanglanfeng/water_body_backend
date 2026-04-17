@@ -1,0 +1,91 @@
+server:
+  port: 8877
+publish:
+  mqtt:
+    host: tcp://8.130.18.84:1883
+    username: admin
+    password: public
+    cleansession: false
+    clientid: idea_mqtt_publish
+    default_topic: 测试
+    timeout: 1000
+    keepalive: 10
+    connectionTimeout: 3000
+
+  servlet:
+    context-path: /
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+
+
+spring:
+  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://8.130.18.84:3306/blackwater?characterEncoding=UTF-8
+#    username: root
+#    password: 0kQUeoZWt_fB
+    url: jdbc:mysql://localhost:3306/waterbody?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+  mail:
+    host: smtp.qq.com
+    username: heichoushuiti@qq.com
+    password: bazrkxuljjirhaeg
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+      protocol: smtps
+      port: 465
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  redis:
+    port: 6379
+    host: localhost
+    #    jedis 不能运行
+    client-type: lettuce
+    lettuce:
+      pool:
+        max-active: 16
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost/itliu
+
+
+
+
+
+
+
+mybatis-plus:
+  # Mapper.xml ???? Maven ???????????? classpath*: ??
+  mapperLocations: classpath:mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    jdbc-type-for-null: null
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      table-underline: true
+# 阿里云OSS
+aliyun:
+  oss:
+    file:
+      endpoint: ${OSS_ENDPOINT:https://oss-cn-beijing.aliyuncs.com}
+      keyid: ${OSS_ACCESS_KEY_ID:}
+      keysecret: ${OSS_ACCESS_KEY_SECRET:}
+      bucketname: ${OSS_BUCKET_NAME:waterbody}
+
+

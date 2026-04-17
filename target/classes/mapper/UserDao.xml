@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blackwater.dao.UserDao">
+    <insert id="register">
+        insert into user (account, password, name, role)
+        values (#{account}, #{password}, #{name}, #{role});
+    </insert>
+    <insert id="addNotice">
+        insert into notice (title, name, content, release_time)
+        values (#{title}, #{name}, #{content}, #{release_time});
+    </insert>
+    <insert id="addFeedback">
+        insert into feedback (time, account, content, site)
+        values (#{time}, #{account}, #{content}, #{site});
+    </insert>
+
+    <update id="updatePasswordByAccount">
+        update user
+        set password = #{password}
+        where account = #{account};
+    </update>
+
+    <update id="updateByAccount">
+        update user
+        set account  = #{account},
+            password =#{password},
+            gender   = #{gender},
+            mail     = #{mail},
+            role     = #{role}
+        where id = #{id};
+    </update>
+    <update id="updatePhotoByAccount">
+        update user
+        set photo = #{url}
+        where account = #{account};
+    </update>
+    <update id="updateNameByAccount">
+        update user
+        set name = #{name}
+        where account = #{account};
+    </update>
+
+
+    <delete id="delById">
+        delete
+        from user
+        where id = #{id};
+    </delete>
+    <delete id="deleteNoticeById">
+        delete
+        from notice
+        where id = #{id};
+    </delete>
+    <delete id="deleteFeedback">
+        delete
+        from feedback
+        where id = #{id};
+    </delete>
+
+    <select id="findUserByAccount" resultType="com.blackwater.entity.User.User">
+        select *
+        from user
+        where account = #{account};
+    </select>
+
+    <select id="findUser" resultType="com.blackwater.entity.User.User">
+        select *
+        from user
+        where account = #{account}
+          and password = #{password};
+    </select>
+    <select id="selectAll" resultType="com.blackwater.entity.User.User">
+        select *
+        from user;
+    </select>
+    <select id="selectNoticeData" resultType="com.blackwater.entity.User.Notice">
+        select *
+        from notice;
+    </select>
+    <select id="selectFeedback" resultType="com.blackwater.entity.User.Feedback">
+        select *
+        from feedback;
+    </select>
+    <select id="getAllAdmin" resultType="com.blackwater.entity.User.Admin">
+        select *
+        from user
+        where role = '管理员';
+    </select>
+    <select id="getUserByCondition" resultType="com.blackwater.entity.User.User">
+        select *
+        from user
+        where name like CONCAT('%', #{condition}, '%') ;
+    </select>
+
+
+</mapper>

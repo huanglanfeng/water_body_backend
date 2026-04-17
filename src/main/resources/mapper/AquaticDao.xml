@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blackwater.dao.AquaticDao">
+    <delete id="deleteDissolvedSalt">
+        delete
+        from dissolved_oxygen
+        where site_id = #{site};
+    </delete>
+    <delete id="deleteOrganism">
+        update organism
+        set germ          = null,
+            fungus        = null,
+            animal        = null,
+            phage         = null,
+            detect_time= null,
+            exist_content = 0
+        where exception_area = #{site};
+    </delete>
+    <delete id="deleteMental">
+        update mental
+        set sodium  = null,
+            mercury = null,
+            calcium = null,
+            zinc = null,
+            magnesium = null,
+            detect_time = null,
+            exist_content = 0
+        where exception_area = #{site};
+    </delete>
+    <delete id="deleteSoluble">
+        delete
+        from soluble
+        where site = #{site};
+    </delete>
+    <delete id="deleteRadiation">
+        update radiation
+        set ray1          = null,
+            ray2          = null,
+            thorium       = null,
+            radium        = null,
+            uranium       = null,
+            detect_time   = null,
+            exist_content = 0
+        where exception_area = #{site};
+    </delete>
+
+
+    <select id="selectDissolvedSalt" resultType="com.blackwater.entity.Aquatic.DissolvedSalt">
+        select site_id, sulfate, nitrate, permanganate, conductivity, detect_time
+        from dissolved_oxygen
+    </select>
+    <select id="selectSoluble" resultType="com.blackwater.entity.Aquatic.Soluble">
+        select *
+        from soluble;
+    </select>
+    <select id="selectMental" resultType="com.blackwater.entity.Aquatic.Mental">
+        select exception_area, sodium, mercury, calcium, zinc, magnesium, detect_time
+        from mental
+        where exist_content = 1;
+    </select>
+    <select id="selectOrganism" resultType="com.blackwater.entity.Aquatic.Organism">
+        select exception_area, germ, fungus, animal, phage, detect_time
+        from organism
+        where exist_content = 1;
+    </select>
+    <select id="selectRadiation" resultType="com.blackwater.entity.Aquatic.Radiation">
+        select exception_area, ray1, ray2, thorium, radium, uranium, detect_time
+        from radiation
+        where exist_content = 1;
+    </select>
+
+</mapper>

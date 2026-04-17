@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blackwater.dao.AddressDataDao">
+
+
+    <delete id="deleteByAlert_number">
+        delete
+        from address_data
+        where alert_number = #{alert_number};
+    </delete>
+    <select id="selectAddressData" resultType="com.blackwater.entity.AddressData">
+        select *
+        from address_data;
+
+    </select>
+    <select id="selectExcellent" resultType="com.blackwater.entity.Percent.Excellent">
+        select excellent1, excellent2, excellent3, excellent4, excellent5, excellent6
+        from percent
+        where site = '瑶湖';
+    </select>
+    <select id="selectGood" resultType="com.blackwater.entity.Percent.Good">
+        select good1, good2, good3, good4, good5, good6
+        from percent
+        where site = '瑶湖';
+    </select>
+    <select id="selectPollute" resultType="com.blackwater.entity.Percent.Pollute">
+        select pollute1, pollute2, pollute3, pollute4, pollute5, pollute6
+        from percent
+        where site = '瑶湖';
+    </select>
+    <select id="selectSerious" resultType="com.blackwater.entity.Percent.Serious">
+        select serious1, serious2, serious3, serious4, serious5, serious6
+        from percent
+        where site = '瑶湖';
+    </select>
+    <select id="selectLevelWeek" resultType="com.blackwater.entity.Level.LevelWeek">
+        select level1, level2, level3, level4, level5, level6, level7
+        from level
+        where site = '瑶湖';
+    </select>
+    <select id="selectWarning" resultType="com.blackwater.entity.warning.Warning">
+        select *
+        from warning;
+    </select>
+    <select id="selectWarningBySite" resultType="com.blackwater.entity.warning.WarningScreen">
+        select statistics.water_quality_parameters,
+               address_data.alert_level,
+               address_data.alert_number,
+               address_data.site,
+               address_data_image_info.time,
+               address_data_image_info.pollutant,
+               address_data_image_info.people,
+               address_data_image_info.content
+        from statistics,
+             address_data,
+             address_data_image_info
+        where address_data.site = #{site}
+          and statistics.site_id = #{site}
+          and address_data_image_info.site = #{site};
+    </select>
+    <select id="selectWarningPhotos" resultType="java.lang.String">
+        select photos
+        from address_data
+        where site = #{site};
+    </select>
+
+
+</mapper>

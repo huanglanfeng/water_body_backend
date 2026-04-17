@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blackwater.dao.daoPhone.DataDao">
+
+
+    <select id="selectAllData" resultType="com.blackwater.entity.phone.PhoneData">
+        select a.id , a.site , a.address , a.alert_time , a.alert_level ,
+               s.water_quality_parameters ,
+               w.temperature , w.ph , w.dissolved_oxygen_concentration , w.turbidity,
+               g.ammonia , g.sulfur_dioxide , g.hydrogen_sulfide , g.nitrogen_dioxide , g.carbon_monoxide,
+               d.conductivity,
+               a.longitude , a.latitude
+        from address_data a , statistics  s ,  water_data w , gas g , dissolved_oxygen d
+        where a.site = g.site_id and
+            a.site = s.site_id and
+            a.site = w.site_id and
+            a.site = d.site_id;
+    </select>
+    <select id="addFault">
+        insert into fault (name,phone,number,description)
+        values (#{name},#{phone},#{number},#{description});
+    </select>
+    <select id="selectNewsByRandom" resultType="com.blackwater.entity.phone.News">
+        select *
+        from news
+        order by rand() LIMIT 1;
+    </select>
+    <select id="selectMap" resultType="com.blackwater.entity.phone.MapData">
+        select id, site, latitude, longitude
+        from address_data;
+    </select>
+
+
+
+
+</mapper>

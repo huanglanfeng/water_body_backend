@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blackwater.dao.DeviceDao">
+    <delete id="deleteDeviceData">
+        delete
+        from device
+        where id = #{id};
+    </delete>
+
+
+    <select id="selectSensorBySite" resultType="com.blackwater.entity.Sensor">
+        select id, status, update_time
+        from device
+        where type = '传感器'
+          and site_id = #{site};
+    </select>
+    <select id="selectCameraBySite" resultType="com.blackwater.entity.Camera">
+        select id,status, update_time
+        from device
+        where type = '摄像头'
+          and site_id = #{site};
+    </select>
+    <select id="selectCameraNumberBySite" resultType="java.lang.Integer">
+        select count(*)
+        from device
+        where type = '摄像头'
+          and site_id = #{site};
+    </select>
+    <select id="selectDeviceData" resultType="com.blackwater.entity.Device">
+        select *
+        from device;
+    </select>
+
+
+</mapper>
