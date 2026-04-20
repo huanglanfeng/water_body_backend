@@ -20,7 +20,7 @@ public class PhoneData {
     @ApiModelProperty("预警级别")
     private String alertLevel;
     @ApiModelProperty("水质参数")
-    private int waterQualityParameters;
+    private String waterQualityParameters;
     @ApiModelProperty("水体温度")
     private double t7;
     @ApiModelProperty("水体ph")

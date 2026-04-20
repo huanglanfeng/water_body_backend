@@ -13,7 +13,7 @@ public class WarningScreen {
     @ApiModelProperty("预警级别")
     private String alertLevel;
     @ApiModelProperty("水质评分")
-    private int waterQualityParameters;
+    private String waterQualityParameters;
     @ApiModelProperty("图片1")
     private String photoOne;
     @ApiModelProperty("图片2")
