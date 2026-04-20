@@ -18,7 +18,7 @@ public class PhoneData {
     @ApiModelProperty("预警时刻")
     private String alertTime;
     @ApiModelProperty("预警级别")
-    private int alertLevel;
+    private String alertLevel;
     @ApiModelProperty("水质参数")
     private int waterQualityParameters;
     @ApiModelProperty("水体温度")

@@ -22,7 +22,7 @@ public class AddressData {
     @ApiModelProperty("预警时刻")
     private String alertTime;
     @ApiModelProperty("预警等级")
-    private int alertLevel;
+    private String alertLevel;
     @ApiModelProperty("经度")
     private double longitude ;
     @ApiModelProperty("纬度")
