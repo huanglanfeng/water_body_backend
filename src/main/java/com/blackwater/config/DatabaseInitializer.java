@@ -26,7 +26,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         try (Connection conn = dataSource.getConnection()) {
             boolean valid = conn.isValid(5);
             if (valid) {
-                var rs = conn.getMetaData().getTables(null, null, "user", null);
+                java.sql.ResultSet rs = conn.getMetaData().getTables(null, null, "user", null);
                 if (rs.next()) {
                     log.info("[DB] Database connected, tables exist");
                 } else {
