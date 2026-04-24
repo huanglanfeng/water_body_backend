@@ -25,21 +25,13 @@ spring:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/waterbody?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&connectTimeout=5000&socketTimeout=10000}
     username: ${MYSQLUSER:root}
     password: ${MYSQLPASSWORD:1234}
-    druid:
-      initial-size: 1
-      min-idle: 1
-      max-active: 5
-      max-wait: 10000
-      connect-timeout: 5000
-      socket-timeout: 10000
-      query-timeout: 10
-      connection-properties: connectTimeout=5000;socketTimeout=10000
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      validation-query: SELECT 1
-      keep-alive: true
-      time-between-eviction-runs-millis: 60000
+    hikari:
+      connection-timeout: 10000
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 300000
+      max-lifetime: 600000
+      connection-test-query: SELECT 1
 
   redis:
     host: ${REDISHOST:localhost}
