@@ -23,8 +23,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/waterbody?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&connectTimeout=5000&socketTimeout=10000}
-    username: ${SPRING_DATASOURCE_USERNAME:root}
-    password: ${SPRING_DATASOURCE_PASSWORD:1234}
+    username: ${SPRING_DATASOURCE_USERNAME:${MYSQLUSER:root}}
+    password: ${SPRING_DATASOURCE_PASSWORD:${MYSQLPASSWORD:1234}}
     hikari:
       connection-timeout: 10000
       maximum-pool-size: 5
@@ -33,9 +33,9 @@ spring:
       max-lifetime: 600000
 
   redis:
-    host: ${SPRING_DATA_REDIS_HOST:localhost}
-    port: ${SPRING_DATA_REDIS_PORT:6379}
-    password: ${SPRING_DATA_REDIS_PASSWORD:}
+    host: ${SPRING_DATA_REDIS_HOST:${REDISHOST:localhost}}
+    port: ${SPRING_DATA_REDIS_PORT:${REDISPORT:6379}}
+    password: ${SPRING_DATA_REDIS_PASSWORD:${REDISPASSWORD:}}
     client-type: lettuce
     lettuce:
       pool:
