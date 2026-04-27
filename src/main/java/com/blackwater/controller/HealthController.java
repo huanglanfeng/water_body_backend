@@ -70,6 +70,36 @@ public class HealthController {
     }
 
     /**
+     * 测试登录（绕过验证码，仅用于调试）
+     * 调用方式：POST /health/test-login
+     */
+    @PostMapping("/health/test-login")
+    public Result testLogin() {
+        Map<String, Object> result = new HashMap<>();
+        try (Connection conn = dataSource.getConnection()) {
+            // 查询admin用户
+            java.sql.PreparedStatement ps = conn.prepareStatement("SELECT account, password, name, role FROM user WHERE account = ?");
+            ps.setString(1, "admin");
+            java.sql.ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                result.put("account", rs.getString("account"));
+                result.put("password", rs.getString("password"));
+                result.put("name", rs.getString("name"));
+                result.put("role", rs.getString("role"));
+                result.put("status", "FOUND");
+            } else {
+                result.put("status", "NOT_FOUND");
+                result.put("message", "admin用户不存在");
+            }
+            return new Result(1, "测试登录", result);
+        } catch (Exception e) {
+            result.put("status", "ERROR");
+            result.put("message", e.getMessage());
+            return new Result(0, "测试失败", result);
+        }
+    }
+
+    /**
      * 手动触发数据库初始化（建表+导入示例数据）
      * 调用方式：POST /health/init
      */
