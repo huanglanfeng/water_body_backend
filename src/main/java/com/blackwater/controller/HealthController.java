@@ -157,12 +157,24 @@ public class HealthController {
 
                 for (String statement : statements) {
                     String trimmed = statement.trim();
-                    if (trimmed.isEmpty() || trimmed.startsWith("--") || trimmed.startsWith("SET ")) {
+                    if (trimmed.isEmpty() || trimmed.startsWith("SET ")) {
+                        continue;
+                    }
+                    // 去除开头的SQL注释行
+                    String[] lines = trimmed.split("\n");
+                    StringBuilder cleanSql = new StringBuilder();
+                    for (String line : lines) {
+                        String lineTrimmed = line.trim();
+                        if (!lineTrimmed.isEmpty() && !lineTrimmed.startsWith("--")) {
+                            cleanSql.append(line).append("\n");
+                        }
+                    }
+                    String finalSql = cleanSql.toString().trim();
+                    if (finalSql.isEmpty()) {
                         continue;
                     }
                     try {
-                        boolean isResult = stmt.execute(trimmed);
-                        // DDL语句返回false，DQL返回true
+                        stmt.execute(finalSql);
                         success++;
                     } catch (Exception e) {
                         if (!e.getMessage().contains("already exists")) {
