@@ -77,15 +77,28 @@ public class HealthController {
     public Result testLogin() {
         Map<String, Object> result = new HashMap<>();
         try (Connection conn = dataSource.getConnection()) {
-            // 先列出所有表
+            // 获取当前数据库名
+            String catalog = conn.getCatalog();
+            result.put("current_database", catalog);
+            
+            // 列出当前数据库的所有表
             java.sql.DatabaseMetaData meta = conn.getMetaData();
-            java.sql.ResultSet tables = meta.getTables(null, null, "%", null);
+            java.sql.ResultSet tables = meta.getTables(catalog, null, "%", new String[]{"TABLE"});
             java.util.List<String> tableList = new java.util.ArrayList<>();
             while (tables.next()) {
                 tableList.add(tables.getString("TABLE_NAME"));
             }
-            result.put("existing_tables", tableList);
+            result.put("tables_in_" + catalog, tableList);
             
+            // 如果railway库没表，检查所有数据库
+            if (tableList.isEmpty()) {
+                java.sql.ResultSet dbs = meta.getCatalogs();
+                java.util.List<String> dbList = new java.util.ArrayList<>();
+                while (dbs.next()) {
+                    dbList.add(dbs.getString("TABLE_CAT"));
+                }
+                result.put("all_databases", dbList);
+            }
             // 查询admin用户
             java.sql.PreparedStatement ps = conn.prepareStatement("SELECT account, password, name, role FROM user WHERE account = ?");
             ps.setString(1, "admin");
