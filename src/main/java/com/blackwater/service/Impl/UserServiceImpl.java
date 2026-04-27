@@ -62,10 +62,15 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         //加密账号
         String originCode = login.getLogin_code() + key + Code.getSignatureSecret();
         String individualVerifyCode = Md5Util.md5Encode(originCode, "utf-8");
-        String verifyCode = (String) redisUtil.get(individualVerifyCode);
+        String verifyCode = null;
+        try {
+            verifyCode = (String) redisUtil.get(individualVerifyCode);
+        } catch (Exception e) {
+            log.warn("Redis获取验证码异常: {}", e.getMessage());
+        }
         //用户输入和redis获取的验证码进行验证
-        if (!login.getLogin_code().equals(verifyCode)) {
-            return new Result(Code.SELECT_ERR, "输入的验证码错误");
+        if (verifyCode == null || !login.getLogin_code().equalsIgnoreCase(verifyCode)) {
+            return new Result(Code.SELECT_ERR, "验证码已过期或错误，请刷新重试");
         }
 
         log.info("传入的account:{},password:{}", login.getLogin_account(), login.getLogin_password());
