@@ -77,6 +77,15 @@ public class HealthController {
     public Result testLogin() {
         Map<String, Object> result = new HashMap<>();
         try (Connection conn = dataSource.getConnection()) {
+            // 先列出所有表
+            java.sql.DatabaseMetaData meta = conn.getMetaData();
+            java.sql.ResultSet tables = meta.getTables(null, null, "%", null);
+            java.util.List<String> tableList = new java.util.ArrayList<>();
+            while (tables.next()) {
+                tableList.add(tables.getString("TABLE_NAME"));
+            }
+            result.put("existing_tables", tableList);
+            
             // 查询admin用户
             java.sql.PreparedStatement ps = conn.prepareStatement("SELECT account, password, name, role FROM user WHERE account = ?");
             ps.setString(1, "admin");
