@@ -107,15 +107,7 @@ public class HealthController {
     public Result initDatabase() {
         Map<String, Object> result = new HashMap<>();
         try (Connection conn = dataSource.getConnection()) {
-            // 检查表是否已存在
-            java.sql.ResultSet rs = conn.getMetaData().getTables(null, null, "user", null);
-            if (rs.next()) {
-                result.put("status", "SKIP");
-                result.put("message", "数据库表已存在，无需初始化");
-                return new Result(1, "跳过初始化", result);
-            }
-
-            log.info("开始执行数据库初始化...");
+            log.info("开始执行数据库初始化（强制模式）...");
             
             // 读取init.sql
             org.springframework.core.io.ClassPathResource resource = new ClassPathResource("init.sql");
