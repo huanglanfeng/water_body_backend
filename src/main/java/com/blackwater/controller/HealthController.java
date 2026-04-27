@@ -161,13 +161,16 @@ public class HealthController {
                         continue;
                     }
                     try {
-                        stmt.executeUpdate(trimmed);
+                        boolean isResult = stmt.execute(trimmed);
+                        // DDL语句返回false，DQL返回true
                         success++;
                     } catch (Exception e) {
                         if (!e.getMessage().contains("already exists")) {
                             failed++;
-                            errors.append(e.getMessage()).append("; ");
-                            log.warn("SQL执行警告: {}", e.getMessage());
+                            errors.append(trimmed.substring(0, Math.min(trimmed.length(), 50))).append(": ").append(e.getMessage()).append("; ");
+                            log.warn("SQL执行失败: {}", e.getMessage());
+                        } else {
+                            success++; // already exists也算成功
                         }
                     }
                 }
