@@ -124,6 +124,10 @@ public class HealthController {
 
             // 执行SQL
             try (Statement stmt = conn.createStatement()) {
+                // 先执行SET语句
+                try { stmt.execute("SET NAMES utf8mb4"); } catch (Exception e) { log.warn("SET NAMES: {}", e.getMessage()); }
+                try { stmt.execute("SET FOREIGN_KEY_CHECKS = 0"); } catch (Exception e) { log.warn("SET FK: {}", e.getMessage()); }
+                
                 String[] statements = sql.split(";");
                 int success = 0;
                 int failed = 0;
@@ -135,7 +139,7 @@ public class HealthController {
                         continue;
                     }
                     try {
-                        stmt.execute(trimmed);
+                        stmt.executeUpdate(trimmed);
                         success++;
                     } catch (Exception e) {
                         if (!e.getMessage().contains("already exists")) {
@@ -153,6 +157,9 @@ public class HealthController {
                     result.put("errors", errors.toString());
                 }
                 log.info("数据库初始化完成！成功: {}, 失败: {}", success, failed);
+                
+                // 恢复外键检查
+                try { stmt.execute("SET FOREIGN_KEY_CHECKS = 1"); } catch (Exception e) { log.warn("RESTORE FK: {}", e.getMessage()); }
             }
 
             return new Result(1, "初始化完成", result);
