@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS feedback;
 DROP TABLE IF EXISTS water_data;
 DROP TABLE IF EXISTS warning;
 DROP TABLE IF EXISTS notice;
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS device;
 DROP TABLE IF EXISTS address_data;
 
@@ -98,9 +98,9 @@ INSERT INTO device (type, status, update_time, site_id, `interval`) VALUES
 ('高清摄像头', '在线', '2026-04-15 10:15:00', '鄱阳湖', 60);
 
 -- ============================================================
--- 3. user（用户）
+-- 3. `user`（用户）
 -- ============================================================
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS `user` (
     id INT AUTO_INCREMENT PRIMARY KEY,
     account VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL COMMENT '账号',
     password VARCHAR(100) CHARACTER SET utf8mb4 NOT NULL COMMENT '密码',
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS user (
     role VARCHAR(20) CHARACTER SET utf8mb4 DEFAULT '普通用户' COMMENT '角色'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户';
 
-INSERT INTO user (account, password, name, gender, mail, photo, role) VALUES
+INSERT INTO `user` (account, password, name, gender, mail, photo, role) VALUES
 ('admin', '123456', '系统管理员', '男', 'admin@water.com', '/images/admin.png', 'admin'),
 ('zhangsan', '123456', '张三', '男', 'zhangsan@qq.com', '/images/zhangsan.png', '管理员'),
 ('lisi', '123456', '李四', '女', 'lisi@qq.com', '/images/lisi.png', '普通用户'),
@@ -679,7 +679,7 @@ INSERT INTO admin (name, role) VALUES
 -- ============================================================
 -- 确保admin用户密码正确
 -- ============================================================
-UPDATE user SET password = '123456' WHERE account = 'admin';
+UPDATE `user` SET password = '123456' WHERE account = 'admin';
 
 SET FOREIGN_KEY_CHECKS = 1;
 

@@ -52,7 +52,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     private boolean checkTablesExist() {
         try {
-            jdbcTemplate.queryForObject("SELECT 1 FROM user LIMIT 1", Integer.class);
+            jdbcTemplate.queryForObject("SELECT 1 FROM `user` LIMIT 1", Integer.class);
             return true;
         } catch (Exception e) {
             return false;
