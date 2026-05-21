@@ -2,9 +2,9 @@ server:
   port: 8080
 publish:
   mqtt:
-    host: tcp://8.130.18.84:1883
-    username: admin
-    password: public
+    host: ${MQTT_HOST:tcp://localhost:1883}
+    username: ${MQTT_USERNAME:admin}
+    password: ${MQTT_PASSWORD:}
     cleansession: false
     clientid: idea_mqtt_publish
     default_topic: 测试
@@ -43,9 +43,9 @@ spring:
         max-active: 16
 
   mail:
-    host: smtp.qq.com
-    username: heichoushuiti@qq.com
-    password: bazrkxuljjirhaeg
+    host: ${MAIL_HOST:smtp.qq.com}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
     properties:
       mail:
         smtp:
