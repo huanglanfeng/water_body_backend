@@ -15,6 +15,11 @@ spring:
       max-lifetime: 600000
       connection-test-query: SELECT 1
 
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+
   redis:
     host: ${REDISHOST:localhost}
     port: ${REDISPORT:6379}
