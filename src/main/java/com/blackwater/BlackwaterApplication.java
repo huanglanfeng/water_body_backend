@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -16,7 +15,6 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 @MapperScan("com.blackwater.dao")
 @EnableSwagger2
-@EnableWebMvc
 @Slf4j
 @EnableCaching
 
