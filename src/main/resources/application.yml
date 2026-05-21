@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
 publish:
   mqtt:
     host: ${MQTT_HOST:tcp://localhost:1883}
